@@ -17,20 +17,23 @@ with open("salary_file.txt", "w", encoding='utf-8') as fh:
 
 def total_salary(path):
     with open("salary_file.txt", "r", encoding='utf-8') as fh:
-        total = 0
-        quantity = 0
-        for line in fh:
-            name, salary = line.split(',')
-            total += int(salary)
-            quantity += 1
+        try:
+            total = 0
+            quantity = 0
+            for line in fh:
+                name, salary = line.split(',')
+                total += int(salary)
+                quantity += 1
         
-        if quantity == 0:
+            if quantity == 0:
+                return (0, 0)
+        
+            average = total / quantity
+            return (total, average)
+        
+        except FileNotFoundError:
+            print(f"Помилка: файл '{path}' відсутній.")
             return (0, 0)
-        
-        average = total / quantity
-        return (total, average)
-
-# Обробка вийнятків!!!!
 
 total, average = total_salary("path/to/salary_file.txt")
 print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
