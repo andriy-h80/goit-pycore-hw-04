@@ -16,12 +16,12 @@ with open("salary_file.txt", "w", encoding='utf-8') as fh:
     fh.write("Sitarama Raju,1000\n")
 
 def total_salary(path):
-    with open("salary_file.txt", "r", encoding='utf-8') as fh:
-        try:
+    try:
+        with open(path, "r", encoding='utf-8') as fh:
             total = 0
             quantity = 0
             for line in fh:
-                name, salary = line.split(',')
+                name, salary = line.strip().split(',')
                 total += int(salary)
                 quantity += 1
         
@@ -31,11 +31,11 @@ def total_salary(path):
             average = total / quantity
             return (total, average)
         
-        except FileNotFoundError:
-            print(f"Помилка: файл '{path}' відсутній.")
-            return (0, 0)
+    except FileNotFoundError:
+        print(f"Помилка: файл '{path}' відсутній.")
+        return (0, 0)
 
-total, average = total_salary("path/to/salary_file.txt")
+total, average = total_salary("salary_file.txt")
 print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
 
 # Загальна сума заробітної плати: 6000, Середня заробітна плата: 2000
